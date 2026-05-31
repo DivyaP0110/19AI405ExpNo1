@@ -1,8 +1,11 @@
 <h1>ExpNo 1 :Developing AI Agent with PEAS Description</h1>
-<h3>Name: Saravanan N</h3>
-<h3>Register Number/Staff Id: TSML006</h3>
+<h3>Name:  DIVYA P</h3>
+<h3>Register Number: 212223040044 </h3>
+
 <h3>AIM:</h3>
+
 <p>To find the PEAS description for the given AI problem and develop an AI agent.</p>
+
 <h3>Theory</h3>
 <h3>Medicine prescribing agent:</h3>
 <p>Such this agent prescribes medicine for fever (greater than 98.5 degrees) which we consider here as unhealthy, by the user temperature input, and another environment is rooms in the hospital (two rooms). This agent has to consider two factors one is room location and an unhealthy patient in a random room, the agent has to move from one room to another to check and treat the unhealthy person. The performance of the agent is calculated by incrementing performance and each time after treating in one room again it has to check another room so that the movement causes the agent to reduce its performance. Hence, agents prescribe medicine to unhealthy.</p>
@@ -36,62 +39,49 @@
 <p>Treat unhealthy patients in each room. And check for the unhealthy patients in random room</p>
 <h3>STEP 5:</h3>
 <p>Measure the performance parameters: For each treatment performance incremented, for each movement performance decremented</p>
-
-## PROGRAM:
-
-#### Developed By: Divya P
-#### Register No: 212223040044
+<h3>Code : </h3>
 
 ```
-class VacuumCleanerAgent:
-    def __init__(self):
-        self.location = "A"  # Initial location (can be "A" or "B")
-        self.dirt_status = {"A": False, "B": False}  # Initial dirt status (False means no dirt)
+import random
+ROOMS = ["Room 1", "Room 2"]
+FEVER_THRESHOLD = 98.5
+environment = {
+    "Room 1": round(random.uniform(97.0, 101.0), 1),
+    "Room 2": round(random.uniform(97.0, 101.0), 1)
+}
+agent_location = "Room 1"
+performance_score = 0
 
-    def move_left(self):
-        if self.location == "B":
-            self.location = "A"
+def check_temperature(room):
+    temp = environment[room]
+    print(f"Checking {room}... Patient temperature: {temp}°F")
+    return temp
 
-    def move_right(self):
-        if self.location == "A":
-            self.location = "B"
+def treat_patient(room):
+    global performance_score
+    print(f"Treating patient in {room}... ")
+    performance_score += 1 
 
-    def suck_dirt(self):
-        if self.dirt_status[self.location]:
-            self.dirt_status[self.location] = False
-            print(f"Sucked dirt in location {self.location}")
+def move_to(room):
+    global agent_location, performance_score
+    if agent_location != room:
+        print(f"Moving from {agent_location} to {room}... ")
+        agent_location = room
+        performance_score -= 1  
+print("Medicine Prescribing Agent Simulation Started \n")
 
-    def do_nothing(self):
-        pass
-
-    def perform_action(self, action):
-        if action == "left":
-            self.move_left()
-        elif action == "right":
-            self.move_right()
-        elif action == "suck":
-            self.suck_dirt()
-        elif action == "nothing":
-            self.do_nothing()
-        else:
-            print("Invalid action")
-
-    def print_status(self):
-        print(f"Location: {self.location}, Dirt Status: {self.dirt_status}")
-
-agent = VacuumCleanerAgent()
-
-
-agent.perform_action("left")
-agent.print_status()
-agent.perform_action("suck")
-agent.print_status()
-agent.perform_action("nothing")
-agent.print_status()
+for room in ROOMS:
+    move_to(room)
+    temp = check_temperature(room)
+    if temp > FEVER_THRESHOLD:
+        treat_patient(room)
+    else:
+        print(f"No treatment needed in {room}.\n")
+print("\nSimulation Complete!")
+print(f"Final Performance Score: {performance_score}")
+print("Environment State:", environment)
 ```
-## OUTPUT:
-<img width="805" height="190" alt="image" src="https://github.com/user-attachments/assets/1c3126dd-bf3d-4c40-8a28-2ff467ebeb0f" />
+<h3>Output:</h3>
 
+<img width="387" height="217" alt="Screenshot 2026-05-14 133159" src="https://github.com/user-attachments/assets/523e4ddc-7e99-4877-a924-496a0d4c7a25" />
 
-## RESULT:
-Thus the Developing AI Agent with PEAS Description was implemented using python programming.
